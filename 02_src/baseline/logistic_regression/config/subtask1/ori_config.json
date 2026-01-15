@@ -1,0 +1,15 @@
+{
+  "language": "ori",
+  "vectorizer": "tfidf",
+  "analyzer": "char",
+  "best_params": {
+    "classifier__C": 1,
+    "classifier__class_weight": "balanced",
+    "vectorizer__min_df": 2,
+    "vectorizer__ngram_range": [
+      3,
+      5
+    ]
+  },
+  "cv_score": 0.719628807878897
+}

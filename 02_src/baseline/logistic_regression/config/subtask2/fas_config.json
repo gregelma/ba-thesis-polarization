@@ -1,0 +1,15 @@
+{
+  "language": "fas",
+  "vectorizer": "tfidf",
+  "analyzer": "word",
+  "best_params": {
+    "classifier__estimator__C": 1,
+    "classifier__estimator__class_weight": "balanced",
+    "vectorizer__min_df": 2,
+    "vectorizer__ngram_range": [
+      1,
+      1
+    ]
+  },
+  "cv_score": 0.5605233453498597
+}

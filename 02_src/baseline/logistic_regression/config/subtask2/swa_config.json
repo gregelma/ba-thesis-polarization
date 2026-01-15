@@ -1,0 +1,15 @@
+{
+  "language": "swa",
+  "vectorizer": "count",
+  "analyzer": "char",
+  "best_params": {
+    "classifier__estimator__C": 0.1,
+    "classifier__estimator__class_weight": "balanced",
+    "vectorizer__min_df": 2,
+    "vectorizer__ngram_range": [
+      3,
+      5
+    ]
+  },
+  "cv_score": 0.4596251022658104
+}

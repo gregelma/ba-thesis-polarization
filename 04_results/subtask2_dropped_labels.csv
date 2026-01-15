@@ -1,0 +1,3 @@
+model,language,label
+Logistic regression,ita,political
+Logistic regression,ita,other

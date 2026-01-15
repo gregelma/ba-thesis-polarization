@@ -1,0 +1,15 @@
+{
+  "language": "ita",
+  "vectorizer": "tfidf",
+  "analyzer": "word",
+  "best_params": {
+    "classifier__C": 1,
+    "classifier__class_weight": "balanced",
+    "vectorizer__min_df": 5,
+    "vectorizer__ngram_range": [
+      1,
+      2
+    ]
+  },
+  "cv_score": 0.6451268457920755
+}

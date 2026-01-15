@@ -1,0 +1,15 @@
+{
+  "language": "spa",
+  "vectorizer": "tfidf",
+  "analyzer": "word",
+  "best_params": {
+    "classifier__C": 1,
+    "classifier__class_weight": null,
+    "vectorizer__min_df": 5,
+    "vectorizer__ngram_range": [
+      1,
+      2
+    ]
+  },
+  "cv_score": 0.6742587115841154
+}

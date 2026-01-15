@@ -1,0 +1,15 @@
+{
+  "language": "hau",
+  "vectorizer": "count",
+  "analyzer": "word",
+  "best_params": {
+    "classifier__estimator__C": 0.1,
+    "classifier__estimator__class_weight": "balanced",
+    "vectorizer__min_df": 1,
+    "vectorizer__ngram_range": [
+      1,
+      1
+    ]
+  },
+  "cv_score": 0.1959384898177785
+}
