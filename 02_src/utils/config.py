@@ -4,6 +4,11 @@ RANDOM_STATE = 42
 CV_FOLDS_BINARY = 5
 CV_FOLDS_MULTILABEL = 3
 
+MAX_LENGTH = 128
+EPOCHS = 5
+BATCH_SIZE = 16
+LEARNING_RATE = 2e-5
+
 LANGUAGES = ["amh", "arb", "ben", "deu", "eng", "fas", "hau", "hin", "ita", "khm", "mya", 
              "nep", "ori", "pan", "pol", "rus", "spa", "swa", "tel", "tur", "urd", "zho"]
 

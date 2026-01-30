@@ -1,7 +1,7 @@
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.metrics import accuracy_score, f1_score
 
-from utils.config import SUBTASK_LANGUAGES, LANGUAGES, LANGUAGES_SUBTASK3
+from utils.config import SUBTASK_LANGUAGES
 from baseline.logistic_regression.run_gridsearch import run_logreg_gridsearch, run_logreg_gridsearch_multilabel
 from utils.io import save_best_params, save_results, save_details, save_exceptions
 from utils.data import load_and_split_language
@@ -91,7 +91,7 @@ def determine_best_baseline(X_train, y_train, subtask):
 # -------------------------
 
 def run_all_languages():
-    for subtask, languages in {3 : LANGUAGES_SUBTASK3}.items():#SUBTASK_LANGUAGES.items():
+    for subtask, languages in SUBTASK_LANGUAGES.items():
         accuracy_by_lang = {}
         f1_macro_by_lang = {}
 
@@ -118,7 +118,7 @@ def run_all_languages():
                 analyzer,
                 best_params,
                 score,
-                f"baseline/logistic_regression/config/subtask{subtask}",
+                f"../04_results/logistic_regression_config/subtask{subtask}",
             )
 
             y_pred = model.predict(X_test)

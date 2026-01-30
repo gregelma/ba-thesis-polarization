@@ -83,23 +83,30 @@ def plot_language_distribution(subtask):
     plt.show()
 
 
-def plot_lang_label_heatmap(subtask):
+def plot_lang_label_heatmap(subtask, annotate, log_scale):
     rows = []
 
     for path in glob.glob(os.path.join(f"../01_data/dev_phase/subtask{subtask}/train", "*.csv")):
         lang = os.path.splitext(os.path.basename(path))[0]
         df = pd.read_csv(path)
 
-        # sum of ones per label in this language file
         counts = df[SUBTASK_LABELS[subtask]].sum()
         counts.name = lang
         rows.append(counts)
 
-    # matrix: languages as rows, labels as columns
-    mat = pd.DataFrame(rows).sort_index()
+    mat = pd.DataFrame(rows).sort_index()  # languages x labels
+    values = mat.values
 
     plt.figure()
-    im = plt.imshow(mat.values, aspect="auto")
+
+    if log_scale:
+        # avoid vmin=0 for LogNorm; use smallest positive value if it exists
+        positive_vals = values[values > 0]
+        vmin = positive_vals.min() if positive_vals.size else 1
+        im = plt.imshow(values, aspect="auto", norm=LogNorm(vmin=vmin, vmax=values.max()))
+    else:
+        im = plt.imshow(values, aspect="auto")
+
     plt.colorbar(im, label="Positive samples (sum of 1s)")
 
     plt.title(f"Subtask {subtask}: Language x Label Distribution (Train)")
@@ -109,39 +116,26 @@ def plot_lang_label_heatmap(subtask):
     plt.xticks(range(len(mat.columns)), mat.columns, rotation=30, ha="right")
     plt.yticks(range(len(mat.index)), mat.index)
 
-    plt.tight_layout()
-    plt.savefig(f"../04_results/plots/subtask{subtask}_lang_x_label_heatmap.png", dpi=200)
-    plt.show()
+    # ---- annotate cells with numbers ----
+    if annotate:
+        # choose a readable font size based on how big the matrix is
+        fs = 9
+        if mat.shape[0] > 25 or mat.shape[1] > 10:
+            fs = 7
+        if mat.shape[0] > 40 or mat.shape[1] > 15:
+            fs = 6
 
-
-def plot_lang_label_heatmap_log(subtask):
-    rows = []
-
-    for path in glob.glob(os.path.join(f"../01_data/dev_phase/subtask{subtask}/train", "*.csv")):
-        lang = os.path.splitext(os.path.basename(path))[0]
-        df = pd.read_csv(path)
-
-        # sum of one per label in this language file
-        counts = df[SUBTASK_LABELS[subtask]].sum()
-        counts.name = lang
-        rows.append(counts)
-
-    # matrix: languages as rows, labels as columns
-    mat = pd.DataFrame(rows).sort_index()
-
-    plt.figure()
-    im = plt.imshow(mat.values, aspect="auto", norm=LogNorm(vmin=1, vmax=mat.values.max()))
-    plt.colorbar(im, label="Positive samples (sum of 1s)")
-
-    plt.title(f"Subtask {subtask}: Language x Label Distribution (Train)")
-    plt.xlabel("Label")
-    plt.ylabel("Language")
-
-    plt.xticks(range(len(mat.columns)), mat.columns, rotation=30, ha="right")
-    plt.yticks(range(len(mat.index)), mat.index)
+        for i in range(mat.shape[0]):          # rows (languages)
+            for j in range(mat.shape[1]):      # cols (labels)
+                plt.text(
+                    j, i, f"{int(values[i, j])}",
+                    ha="center", va="center",
+                    fontsize=fs,
+                    color="black"
+                )
 
     plt.tight_layout()
-    plt.savefig(f"../04_results/plots/subtask{subtask}_lang_x_label_heatmap_log.png", dpi=200)
+    plt.savefig(f"../04_results/plots/subtask{subtask}_lang_x_label_heatmap_{'log' if log_scale else 'linear'}_{'annotated' if annotate else 'not_annotated'}.png", dpi=200)
     plt.show()
 
 
@@ -182,8 +176,12 @@ def plot_subtask1_language_distribution():
 #     plot_language_distribution(1)
 #     plot_language_distribution(2)
 #     plot_language_distribution(3)
-#     plot_lang_label_heatmap(2)
-#     plot_lang_label_heatmap(3)
-#     plot_lang_label_heatmap_log(2)
-#     plot_lang_label_heatmap_log(3)
 #     plot_subtask1_language_distribution()
+#     plot_lang_label_heatmap(2, annotate=False, log_scale=False)
+#     plot_lang_label_heatmap(2, annotate=False, log_scale=True)
+#     plot_lang_label_heatmap(3, annotate=False, log_scale=False)
+#     plot_lang_label_heatmap(3, annotate=False, log_scale=True)
+#     plot_lang_label_heatmap(2, annotate=True, log_scale=False)
+#     plot_lang_label_heatmap(2, annotate=True, log_scale=True)
+#     plot_lang_label_heatmap(3, annotate=True, log_scale=False)
+#     plot_lang_label_heatmap(3, annotate=True, log_scale=True)

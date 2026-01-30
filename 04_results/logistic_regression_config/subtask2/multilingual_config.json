@@ -1,0 +1,15 @@
+{
+  "language": "multilingual",
+  "vectorizer": "count",
+  "analyzer": "char",
+  "best_params": {
+    "classifier__estimator__C": 0.1,
+    "classifier__estimator__class_weight": "balanced",
+    "vectorizer__min_df": 5,
+    "vectorizer__ngram_range": [
+      3,
+      5
+    ]
+  },
+  "cv_score": 0.20804708174026496
+}
